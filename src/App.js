@@ -15,6 +15,8 @@ import UserState from './context/user/userState';
 import Main from './Main';
 import MyBlogs from '../src/components/blog/MyBlogs';
 import Blogs from '../src/components/blog/Blogs';
+import BlogPage from "../src/components/blog/BlogPage";
+import EditBlogPage from "../src/components/blog/EditBlogPage";
 
 function App() {
   return (
@@ -38,6 +40,16 @@ function App() {
                     path="/addblog"
                     component={BlogForm}
                   ></UserRoute>
+                  <UserRoute
+                    exact
+                    path="/blogpage"
+                    component={BlogPage}
+                  />
+                  <UserRoute
+                    exact
+                    path="/editblog"
+                    component={EditBlogPage}
+                  />
                   <AdminRoute
                     exact
                     path="/dashboard"

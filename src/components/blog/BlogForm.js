@@ -60,9 +60,11 @@ const BlogForm = props => {
             required
             onChange={onChange}
           />
-          <Button type="submit" variant="contained" color="primary">
-            Add Blog
+          <div className="update-btn-group">
+            <Button id="update-btn" type="submit" variant="contained" color="primary">
+              Add Blog
           </Button>
+          </div>
         </form>
       </Container>
     </div>

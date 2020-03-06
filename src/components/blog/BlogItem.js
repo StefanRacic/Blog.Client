@@ -21,7 +21,7 @@ const BlogItem = ({ blog }) => {
   const authContext = useContext(AuthContext);
   const blogContext = useContext(BlogContext);
 
-  const { deleteBlog, loadMyBlogs, allBlogs } = blogContext;
+  const { deleteBlog, loadMyBlogs, allBlogs, setCurrent } = blogContext;
 
   const classes = useStyles();
 
@@ -30,6 +30,9 @@ const BlogItem = ({ blog }) => {
   const onDelete = () => {
     deleteBlog(id);
   };
+  const onOpen = () => {
+    setCurrent(blog);
+  }
 
   return (
     <Card className={classes.root} className="blog-item">
@@ -51,9 +54,11 @@ const BlogItem = ({ blog }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Open
+        <Link to="/blogpage">
+          <Button size="small" color="primary" onClick={onOpen}>
+            Open
         </Button>
+        </Link>
       </CardActions>
     </Card>
   );

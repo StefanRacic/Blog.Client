@@ -22,7 +22,7 @@ const MyBlogItem = ({ blog }) => {
   const authContext = useContext(AuthContext);
   const blogContext = useContext(BlogContext);
 
-  const { deleteBlog, loadMyBlogs, allBlogs } = blogContext;
+  const { deleteBlog, loadMyBlogs, allBlogs, setCurrent } = blogContext;
 
   const classes = useStyles();
 
@@ -32,14 +32,25 @@ const MyBlogItem = ({ blog }) => {
     deleteBlog(id);
   };
 
+  const onOpen = () => {
+    setCurrent(blog)
+  }
+  const onCurrent = () => {
+    setCurrent(blog)
+  }
+
   const myBlog = (
     <Fragment>
-      <Button size="small" color="primary">
-        Open
+      <Link to="/blogpage">
+        <Button onClick={onOpen} size="small" color="primary">
+          Open
       </Button>
-      <Button size="small" color="primary">
-        Update
+      </Link>
+      <Link to="/editblog">
+        <Button onClick={onCurrent} size="small" color="primary">
+          Update
       </Button>
+      </Link>
       <Button size="small" color="primary" onClick={onDelete}>
         Delete
       </Button>

@@ -2,7 +2,10 @@ import {
     GET_ALL_BLOGS,
     GET_MY_BLOGS,
     ADD_BLOG,
-    DELETE_BLOG
+    DELETE_BLOG,
+    SET_CURRENT,
+    CLEAR_CURRENT,
+    UPDATE_BLOG
 } from "../types"
 
 export default (state, action) => {
@@ -21,6 +24,23 @@ export default (state, action) => {
             return {
                 ...state,
                 myBlogs: [...state.myBlogs, action.payload],
+            }
+        case UPDATE_BLOG:
+            return {
+                ...state,
+                myBlogs: state.myBlogs.map(blog =>
+                    blog.id === action.payload.id ? action.payload : blog
+                )
+            }
+        case SET_CURRENT:
+            return {
+                ...state,
+                current: action.payload
+            }
+        case CLEAR_CURRENT:
+            return {
+                ...state,
+                current: null
             }
         case DELETE_BLOG:
             return {

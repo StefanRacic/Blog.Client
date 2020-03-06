@@ -8,13 +8,16 @@ import {
     BLOG_ERROR,
     GET_ALL_BLOGS,
     GET_MY_BLOGS,
+    SET_CURRENT,
+    CLEAR_CURRENT,
+    UPDATE_BLOG
 } from "../types"
 
 const BlogState = props => {
     const initialState = {
         allBlogs: null,
         myBlogs: null,
-        currentBlog: null,
+        current: null,
         error: null
     }
 
@@ -42,6 +45,39 @@ const BlogState = props => {
             });
         }
     }
+
+    // Update Blog
+    const updateBlog = async (blog) => {
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "bearer " + localStorage.getItem("token")
+            }
+        };
+        try {
+            const res = await axios.put(`http://localhost:5000/api/blogitems/${blog.id}`, blog, config);
+            dispatch({
+                type: UPDATE_BLOG,
+                payload: res.data
+            })
+        } catch (error) {
+            dispatch({
+                type: BLOG_ERROR,
+                payload: error
+            })
+        }
+    }
+
+    // Set Current Blog
+    const setCurrent = contact => {
+        dispatch({ type: SET_CURRENT, payload: contact });
+    };
+
+    // Clear Current Blog
+    const clearCurrent = () => {
+        dispatch({ type: CLEAR_CURRENT });
+    };
+
 
     // Load my Blogs
     const loadMyBlogs = async () => {
@@ -116,10 +152,14 @@ const BlogState = props => {
         <BlogContext.Provider value={{
             allBlogs: state.allBlogs,
             myBlogs: state.myBlogs,
+            current: state.current,
             loadAllBlogs,
             loadMyBlogs,
             addBlog,
-            deleteBlog
+            deleteBlog,
+            setCurrent,
+            clearCurrent,
+            updateBlog
         }}>
             {props.children}
         </BlogContext.Provider>
